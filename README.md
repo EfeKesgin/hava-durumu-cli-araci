@@ -26,7 +26,7 @@ Hava Durumu Sorgulama Uygulamasına Hoş Geldin!
 
 Şehir adı: Frankfurt
 
-     Frankfurt am Main için Hava Durumu      
+     Frankfurt için Hava Durumu      
 ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
 ┃ Özellik        ┃ Değer            ┃
 ┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
