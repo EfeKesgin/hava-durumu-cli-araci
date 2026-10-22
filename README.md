@@ -1,21 +1,20 @@
-# 🌤️ Hava Durumu CLI Aracı
+<div align="center">
 
-![Python](https://img.shields.io/badge/python-3.8%2B-3776AB?logo=python&logoColor=white)
-[![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
+# 🌤️ Hava Durumu CLI
 
-Komut satırından istediğin kadar şehir adı girerek güncel hava durumunu renkli bir tabloda görmeni sağlayan, sürekli açık kalan bir Python uygulaması. Veriler [OpenWeatherMap](https://openweathermap.org/) API’sinden gelir.
+**Terminalden çıkmadan istediğin şehrin hava durumunu renkli bir tabloda gösteren Python aracı.**
+Şehir adını yaz, Enter'a bas; sıcaklık, hissedilen, nem ve rüzgar anında ekranda.
 
-## 👨‍💻 Geliştirici
-[Efe Kesgin](https://github.com/EfeKesgin)
+![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)
+![OpenWeatherMap](https://img.shields.io/badge/veri-OpenWeatherMap-EB6E4B)
+[![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-blue)](LICENSE)
 
-## 📸 Ekran Görüntüsü
+</div>
+
 ```
-Hava Durumu Sorgulama Uygulamasına Hoş Geldin!
-Şehir adını yaz ve Enter'a bas. (Çıkmak için pencereyi kapatabilirsin)
-
 Şehir adı: İstanbul
 
-      İstanbul için Hava Durumu      
+      İstanbul için Hava Durumu
 ┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
 ┃ Özellik        ┃ Değer            ┃
 ┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
@@ -26,80 +25,82 @@ Hava Durumu Sorgulama Uygulamasına Hoş Geldin!
 │ Rüzgar Hızı    │ 4.12 m/s         │
 │ Son Güncelleme │ 14/06/2025 05:28 │
 └────────────────┴──────────────────┘
-
-Şehir adı: Frankfurt
-
-     Frankfurt için Hava Durumu      
-┏━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
-┃ Özellik        ┃ Değer            ┃
-┡━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
-│ Durum          │ Parçalı bulutlu  │
-│ Sıcaklık       │ 15.12°C          │
-│ Hissedilen     │ 14.80°C          │
-│ Nem            │ %70              │
-│ Rüzgar Hızı    │ 3.50 m/s         │
-│ Son Güncelleme │ 14/06/2025 05:28 │
-└────────────────┴──────────────────┘
 ```
 
-## ✨ Özellikler
-- İstediğin kadar şehir ismi girerek hava durumu sorgulama
-- Sıcaklık, nem, rüzgar hızı gibi detaylı bilgiler
-- Renkli ve kullanıcı dostu arayüz
-- Türkçe hava durumu açıklamaları
-- Yanlış yazılan şehirde uygulama kapanmaz, yeni şehir sormaya devam eder
-- Uygulama sürekli açık kalır, çıkmak için `Ctrl+C` yeterli
+## Neler yapabilir?
 
-## 🚀 Kurulum
-1. Projeyi bilgisayarına indir:
-```bash
-git clone https://github.com/EfeKesgin/hava-durumu-cli-araci.git
-cd hava-durumu-cli-araci
-```
-2. Gerekli paketleri yükle:
-```bash
-pip install -r requirements.txt
-```
-3. OpenWeatherMap'ten ücretsiz bir API anahtarı al:
-   - https://openweathermap.org/api adresine git
-   - Ücretsiz hesap oluştur
-   - API anahtarını kopyala
-4. `.env.example` dosyasını `.env` olarak kopyala ve API anahtarını yaz:
-```bash
-cp .env.example .env
-```
-```
-OPENWEATHER_API_KEY=buraya_api_anahtarini_yapistir
-```
-> `.env` dosyası `.gitignore` içindedir; API anahtarın yanlışlıkla GitHub’a gitmez.
-> Yeni oluşturulan anahtarların etkinleşmesi birkaç saat sürebilir.
+| | |
+| --- | --- |
+| **Sınırsız sorgu** | Uygulama açık kalır; istediğin kadar şehri art arda sorgula. |
+| **Ayrıntılı bilgi** | Hava durumu, sıcaklık, hissedilen sıcaklık, nem, rüzgar hızı ve ölçüm zamanı. |
+| **Türkçe** | Hava durumu açıklamaları Türkçe gelir ("Parçalı bulutlu", "Hafif yağmur"...). |
+| **Renkli tablo** | [Rich](https://github.com/Textualize/rich) ile okunaklı, renkli terminal çıktısı. |
+| **Hataya dayanıklı** | Yanlış yazılan şehir ya da kopan bağlantı uygulamayı kapatmaz; yeni şehir sormaya devam eder. |
 
-## 💻 Kullanım
-```bash
-python main.py
-```
-- Şehir adını yazıp Enter'a bas.
-- Sonuç ekrana gelir, yeni şehir ismi girebilirsin.
-- Çıkmak için `Ctrl+C` tuşlarına bas.
+## Hızlı başlangıç
 
-## 🛠️ Gereksinimler
-- Python 3.8 veya üstü
-- requests (API istekleri için)
-- python-dotenv (Çevre değişkenleri için)
-- rich (Güzel görünümlü çıktılar için)
+1. Projeyi indir ve gerekli paketleri kur:
 
-## 🤝 Katkıda Bulunma
-Eğer projeye katkıda bulunmak istersen:
-1. Bu projeyi fork et
-2. Yeni bir branch oluştur (`git checkout -b feature/yeniOzellik`)
-3. Değişikliklerini commit et (`git commit -am 'Yeni özellik: X'`)
-4. Branch'ini push et (`git push origin feature/yeniOzellik`)
-5. Pull Request oluştur
+   ```bash
+   git clone https://github.com/EfeKesgin/hava-durumu-cli-araci.git
+   cd hava-durumu-cli-araci
+   pip install -r requirements.txt
+   ```
 
-## 📝 Lisans
-MIT Lisansı altında dağıtılmaktadır. Detaylar için `LICENSE` dosyasına bakabilirsin.
+2. [OpenWeatherMap](https://openweathermap.org/api)'ten ücretsiz bir hesap açıp API anahtarını kopyala.
+   *(Yeni anahtarların etkinleşmesi birkaç saat sürebilir.)*
 
-## ⚠️ Dikkat: .env Dosyası Gizli Olmalıdır
-- `.env` dosyası API anahtarını içerdiği için gizli tutulmalıdır.
-- Bu dosya `.gitignore` sayesinde GitHub'a yüklenmez.
-- Projeyi başkası kullanacaksa, kendi `.env` dosyasını oluşturmalı ve kendi API anahtarını eklemelidir.
+3. `.env.example` dosyasını `.env` adıyla kopyala ve anahtarını içine yaz:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   ```
+   OPENWEATHER_API_KEY=buraya_api_anahtarini_yapistir
+   ```
+
+4. Çalıştır:
+
+   ```bash
+   python main.py
+   ```
+
+Şehir adını yazıp Enter'a bas. Çıkmak için **Ctrl+C**.
+
+## API anahtarın güvende mi?
+
+Evet. `.env` dosyası `.gitignore` içinde olduğu için yanlışlıkla GitHub'a yüklenmez. Anahtar
+yalnızca senin bilgisayarından OpenWeatherMap'e yapılan isteklerde (HTTPS) kullanılır. Projeyi
+başkası kullanacaksa kendi `.env` dosyasını oluşturup kendi anahtarını eklemelidir.
+
+## English
+
+**Hava Durumu CLI** is a small Python command-line tool that shows the current weather for any
+city in a colorful table (condition, temperature, feels-like, humidity, wind speed), using the
+OpenWeatherMap API. It keeps running so you can query as many cities as you like; a misspelled
+city or network error does not close it. Put your API key in a `.env` file (see `.env.example`).
+The output is in Turkish.
+
+---
+
+## Geliştiriciler için
+
+### Gereksinimler
+
+- Python 3.8 veya üzeri
+- [requests](https://requests.readthedocs.io/): API istekleri
+- [python-dotenv](https://github.com/theskumar/python-dotenv): `.env` dosyasını okuma
+- [rich](https://github.com/Textualize/rich): renkli tablo çıktısı
+
+### Nasıl çalışır?
+
+`main.py` açılışta API anahtarını `.env` dosyasından (ya da `OPENWEATHER_API_KEY` ortam
+değişkeninden) bir kez okur. Her sorgu, OpenWeatherMap'in
+[Current Weather](https://openweathermap.org/current) uç noktasına `units=metric` ve `lang=tr`
+parametreleriyle, 10 saniyelik zaman aşımıyla gönderilir. Geçersiz anahtar (401) uygulamayı
+kapatır; bulunamayan şehir (404) ve ağ hataları yalnızca uyarı gösterir.
+
+## Lisans
+
+Hava Durumu CLI [MIT Lisansı](LICENSE) ile dağıtılır.
