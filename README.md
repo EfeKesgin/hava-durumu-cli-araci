@@ -1,6 +1,9 @@
 # 🌤️ Hava Durumu CLI Aracı
 
-Merhaba! Bu proje, komut satırından istediğin kadar şehir ismi girerek hava durumu bilgilerini kolayca öğrenmeni sağlayan, sürekli açık kalan bir Python uygulaması.
+![Python](https://img.shields.io/badge/python-3.8%2B-3776AB?logo=python&logoColor=white)
+[![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
+
+Komut satırından istediğin kadar şehir adı girerek güncel hava durumunu renkli bir tabloda görmeni sağlayan, sürekli açık kalan bir Python uygulaması. Veriler [OpenWeatherMap](https://openweathermap.org/) API’sinden gelir.
 
 ## 👨‍💻 Geliştirici
 [Efe Kesgin](https://github.com/EfeKesgin)
@@ -44,7 +47,8 @@ Hava Durumu Sorgulama Uygulamasına Hoş Geldin!
 - Sıcaklık, nem, rüzgar hızı gibi detaylı bilgiler
 - Renkli ve kullanıcı dostu arayüz
 - Türkçe hava durumu açıklamaları
-- Uygulama sürekli açık kalır, çıkmak için pencereyi kapatman yeterli
+- Yanlış yazılan şehirde uygulama kapanmaz, yeni şehir sormaya devam eder
+- Uygulama sürekli açık kalır, çıkmak için `Ctrl+C` yeterli
 
 ## 🚀 Kurulum
 1. Projeyi bilgisayarına indir:
@@ -60,10 +64,15 @@ pip install -r requirements.txt
    - https://openweathermap.org/api adresine git
    - Ücretsiz hesap oluştur
    - API anahtarını kopyala
-4. Proje klasöründe `.env` dosyası oluştur ve API anahtarını ekle:
+4. `.env.example` dosyasını `.env` olarak kopyala ve API anahtarını yaz:
+```bash
+cp .env.example .env
+```
 ```
 OPENWEATHER_API_KEY=buraya_api_anahtarini_yapistir
 ```
+> `.env` dosyası `.gitignore` içindedir; API anahtarın yanlışlıkla GitHub’a gitmez.
+> Yeni oluşturulan anahtarların etkinleşmesi birkaç saat sürebilir.
 
 ## 💻 Kullanım
 ```bash
@@ -71,7 +80,7 @@ python main.py
 ```
 - Şehir adını yazıp Enter'a bas.
 - Sonuç ekrana gelir, yeni şehir ismi girebilirsin.
-- Çıkmak için pencereyi kapatman yeterli.
+- Çıkmak için `Ctrl+C` tuşlarına bas.
 
 ## 🛠️ Gereksinimler
 - Python 3.8 veya üstü
@@ -93,4 +102,4 @@ MIT Lisansı altında dağıtılmaktadır. Detaylar için `LICENSE` dosyasına b
 ## ⚠️ Dikkat: .env Dosyası Gizli Olmalıdır
 - `.env` dosyası API anahtarını içerdiği için gizli tutulmalıdır.
 - Bu dosya `.gitignore` sayesinde GitHub'a yüklenmez.
-- Projeyi başkası kullanacaksa, kendi `.env` dosyasını oluşturmalı ve kendi API anahtarını eklemelidir. 
+- Projeyi başkası kullanacaksa, kendi `.env` dosyasını oluşturmalı ve kendi API anahtarını eklemelidir.

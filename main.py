@@ -13,41 +13,49 @@ import os
 import sys
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
 
 # Rich konsol nesnesi
 console = Console()
 
-def get_weather(city):
+API_URL = "https://api.openweathermap.org/data/2.5/weather"
+
+def get_api_key():
+    """
+    API anahtarını .env dosyasından (veya ortam değişkeninden) okur.
+
+    Returns:
+        str: OpenWeatherMap API anahtarı
+
+    Raises:
+        SystemExit: API anahtarı bulunamazsa
+    """
+    # .env dosyasını betiğin bulunduğu klasörden yükle
+    load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
+    api_key = os.getenv('OPENWEATHER_API_KEY', '').strip()
+    if not api_key:
+        console.print("[red]Hata: OPENWEATHER_API_KEY bulunamadı![/red]")
+        console.print("Lütfen .env.example dosyasını .env olarak kopyalayıp API anahtarınızı yazın.")
+        sys.exit(1)
+    return api_key
+
+def get_weather(city, api_key):
     """
     OpenWeatherMap API'den hava durumu bilgilerini alır.
-    
+
     Args:
         city (str): Hava durumu bilgisi alınacak şehir adı
-    
-    Returns:
-        dict: API'den gelen hava durumu verileri
-    
-    Raises:
-        SystemExit: API anahtarı bulunamazsa veya API isteği başarısız olursa
-    """
-    # .env dosyasını doğrudan oku
-    try:
-        with open('.env', 'r') as f:
-            api_key = f.read().strip().split('=')[1]
-    except (FileNotFoundError, IndexError):
-        console.print("[red]Hata: .env dosyası bulunamadı veya API anahtarı eksik![/red]")
-        console.print("Lütfen .env dosyasında API anahtarınızı tanımlayın.")
-        sys.exit(1)
-    
-    if not api_key:
-        console.print("[red]Hata: API anahtarı boş![/red]")
-        console.print("Lütfen .env dosyasında geçerli bir API anahtarı tanımlayın.")
-        sys.exit(1)
+        api_key (str): OpenWeatherMap API anahtarı
 
+    Returns:
+        dict | None: API'den gelen hava durumu verileri, hata olursa None
+
+    Raises:
+        SystemExit: API anahtarı geçersizse
+    """
     # API isteği için parametreleri hazırla
-    base_url = "http://api.openweathermap.org/data/2.5/weather"
     params = {
         'q': city,
         'appid': api_key,
@@ -57,13 +65,22 @@ def get_weather(city):
 
     try:
         # API'ye istek gönder
-        response = requests.get(base_url, params=params)
-        response.raise_for_status()  # HTTP hatalarını kontrol et
-        return response.json()
+        response = requests.get(API_URL, params=params, timeout=10)
     except requests.exceptions.RequestException as e:
-        console.print(f"[red]Hata: API isteği başarısız oldu![/red]")
+        console.print("[red]Hata: API isteği başarısız oldu![/red]")
         console.print(f"[red]Detay: {str(e)}[/red]")
+        return None
+
+    if response.status_code == 401:
+        console.print("[red]Hata: API anahtarı geçersiz![/red]")
         sys.exit(1)
+    if response.status_code == 404:
+        console.print(f"[yellow]'{city}' adında bir şehir bulunamadı.[/yellow]")
+        return None
+    if not response.ok:
+        console.print(f"[red]Hata: API {response.status_code} döndürdü.[/red]")
+        return None
+    return response.json()
 
 def display_weather(data):
     """
@@ -108,17 +125,19 @@ def main():
     Çıkmak için pencereyi kapatmak yeterlidir.
     """
     console.print("[bold cyan]\nHava Durumu Sorgulama Uygulamasına Hoş Geldin![/bold cyan]")
-    console.print("[green]Şehir adını yaz ve Enter'a bas. (Çıkmak için pencereyi kapatabilirsin)[/green]\n")
+    console.print("[green]Şehir adını yaz ve Enter'a bas. (Çıkmak için Ctrl+C)[/green]\n")
+    api_key = get_api_key()
     while True:
         try:
             city = input("Şehir adı: ").strip()
             if not city:
                 console.print("[yellow]Lütfen bir şehir adı gir.[/yellow]")
                 continue
-            weather_data = get_weather(city)
-            display_weather(weather_data)
+            weather_data = get_weather(city, api_key)
+            if weather_data:
+                display_weather(weather_data)
             print()  # Boş satır
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             console.print("\n[red]Uygulama kapatılıyor...[/red]")
             break
 
